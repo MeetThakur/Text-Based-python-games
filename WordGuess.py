@@ -15,7 +15,6 @@ while True:
     w = random.choice(words)
     if len(w) == l:
         break
-#print(w)
 li = list(w)
 n = 0
 while True:
@@ -39,7 +38,7 @@ while True:
         break
     else:
         print("Wrong Word")
-    
+
 
 
 
