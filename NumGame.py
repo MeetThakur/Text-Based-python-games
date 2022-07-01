@@ -1,7 +1,7 @@
 from random import randint
 print("Welcome to the Game")
 print("Do You Want Tutorial? (press y if you want)")
-k = ("1","2","3","4","5","6","7","8","9","0")
+k = ("1","2","3","4","5")
 j = (1,2,3,4,5)
 if input()=='y':
     print("Tutorial : Computer Generates a random number \nYou Chose a number between 1 to 5 to subtract\nIf you make the number 1 you win\nNow Go and Play!")
@@ -14,19 +14,13 @@ while x > 0:
     print("Your Turn")
     print("Enter a number Between from 1 to 5")
     a = (input())
-    if a in k:
-        a = int(a)
     while a not in k:
-        print("Please Enter a Number not letters")
-        a = input("Wrong Value, Enter value From 1 to 5: ")
+        print("Please Enter a Appropriate Value")
+        a = input("Enter value From 1 to 5: ")
         if a in k:
             a = int(a)
-        if a in j:
-            break
-    a = int(a)
-    while a >5 or a<1:
-        a = input("Wrong Value, Enter value From 1 to 5: ")
-        
+            if a in j:
+                break      
     print("Your Choose : ",a)
     x = x - a
     if x == 1:
@@ -46,7 +40,6 @@ while x > 0:
         print("Enter 0 to exit")
         if input()==0:
             break
-
 
     
     
