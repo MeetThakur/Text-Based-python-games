@@ -1,8 +1,11 @@
-# Simple-Pyton-Game
+# 🕹Simple Python Games Where you play against the computer                                                                                         
 
-🕹 Just a Simple Python Games Where you play against the computer                                                                                                            
                                                                                               
-🔠 In The Word Game Computer Generates a Word based On Selected Difficulty and You Guess It
+🔠 Guess The Word Based on The Difficulty
+
 🛳 Good old Battleships
-👊 A Simple Text Based Fighting Ga
+
+👊 A Simple Text Based Fighting Game
+
 ✂ You Know Rock Paper Scissors
+
