@@ -1,4 +1,83 @@
-def Guessword():
+import random as r
+import requests
+from bs4 import BeautifulSoup as b
+
+print('''
+░█  ░█ ░█▀▀▀ ░█    ░█▀▀█ ░█▀▀▀█ ░█▀▄▀█ ░█▀▀▀ 
+░█░█░█ ░█▀▀▀ ░█    ░█    ░█   █ ░█░█░█ ░█▀▀▀ 
+░█▄▀▄█ ░█▄▄▄ ░█▄▄█ ░█▄▄█ ░█▄▄▄█ ░█  ░█ ░█▄▄▄''')
+
+
+
+def guessletter():
+    while True:      
+        guess1 = input("Guess a Letter: ")
+        guess=guess1.upper()
+        while guess.isalpha() == False:
+            print("Please Enter only Alphabets")
+            temp = input("Enter Again : ")
+            guess = temp.upper()
+            if guess.isalpha():
+                break
+            
+        while len(guess) != 1:
+            print("Please Enter only One Letter")
+            temp = input("Enter Again : ")
+            guess = temp.upper()
+            if len(guess) == 1:
+                break
+        else:
+            break
+    return guess
+
+def randomword(difficulty):
+    import random as r
+    lines = open("/home/meet/Desktop/Code/Games Code/Text Games/words.txt").read() 
+    line = lines[0:] 
+    words = line.split() 
+
+    while True:
+        word = r.choice(words)
+        word = word.upper()
+        if len(word) == difficulty:
+            break
+    return word
+
+
+def findmeaning(text):
+    url = "https://www.google.com/search?q=define+"+text
+    req1 = requests.get(url)
+    soup1 = b(req1.text,"html.parser")
+    s = soup1.find("div",class_="Gx5Zad xpd EtOod pkphOe")
+    result = s.text
+    if result.startswith("ImagesView") or result.startswith("Did") :
+        result = alt()
+    if "allThe" in result:
+        result = result.partition("allThe")
+        x = result[2]
+        result = x
+    if "Wikipediaen.wikipedia.org" in result:
+        temp = result.partition("Wikipediaen.wikipedia.org")
+        x = temp[0]
+        result = x
+    if result.startswith("People"):
+        result = alt()
+    x = result.split(".")
+    result = x[0]
+    return result.title()
+
+def alt():
+    url = "https://www.google.com/search?q=meaning+of+"+text
+    req1 = requests.get(url)
+    soup1 = b(req1.text,"html.parser")
+    s = soup1.find("div",class_="Gx5Zad xpd EtOod pkphOe")
+    result = s.text
+    x = result.split(".")
+    result = x[0]
+    return result
+
+
+def GuessWord():
     while True:
         print("Select Difficulty : \n Enter 1 : 3 letters \n Enter 2 : 4 letters \n Enter 3 : 5 lettes \n Enter 4 : 6 letters \n Enter 5 : 7 letters \n Enter 6 : 8 Letters" )
         choice = input(" - ")
@@ -10,6 +89,7 @@ def Guessword():
             print("Please Enter Appropriate Value!")
         else:
             break
+
 
     if choice == '1':
         difficulty = 3
@@ -31,36 +111,14 @@ def Guessword():
     wronglist = []
     temp = 0
 
-    lines = open("words.txt").read() 
-    line = lines[0:] 
-    words = line.split() 
-
-    while True:
-        word = r.choice(words)
-        word = word.upper()
-        if len(word) == difficulty:
-            break
+    word = randomword(difficulty)
 
     wordlist = list(word)
     rounds = 0
-    while True:      
-        guess1 = input("Guess a Letter: ")
-        guess=guess1.upper()
-        
-        while guess.isalpha() == False:
-            print("Please Enter only Alphabets")
-            temp = input("Enter Again : ")
-            guess = temp.upper()
-            if guess.isalpha():
-                break
-            
-        while len(guess) != 1:
-            print("Please Enter only One Letter")
-            temp = input("Enter Again : ")
-            guess = temp.upper()
-            if len(guess) == 1:
-                break
-               
+    hint = "yes"
+    while True:
+        guess = guessletter()
+        rounds += 1      
         if guess in wordlist:
             n = 0
             print("  ")
@@ -95,35 +153,38 @@ def Guessword():
             print("------------------------------------------------------")
             print("  ")
 
-        guessword1 = input("Guess The Word or Enter 0 Give Up: ")
-        guessword = guessword1.upper()
+        guessword = input("Guess The Word\nEnter 0 To Give Up\nEnter 1 For a Hint \n: ").upper()
+      
 
         if guessword == word:
             print("Correct You Guessed The Word! in ",rounds,"rounds\nThank You For Playing" )
             print("  ")
-            n = input("Enter X to Exit : ")
-            if n == "X" or n == "x":
+            ch = input("Enter X to Exit : ")
+            if ch.lower() == "x":
                 break
             else:
-                guessword()
+                GuessWord()
         elif guessword == "0":
             print("The Word Was : ",word," :\nThank You For Playing")
             print(" ")
-            n = input("Enter X to Exit : ")
-            if n == "X" or n == "x":
+            ch = input("Enter X to Exit : ")
+            if ch.upper() == "X":
                 break
             else:
-                guessword()
+                GuessWord()
+
+        elif guessword == "1":
+            if hint =="yes":
+                text = word
+                meaning = findmeaning(text)
+                print(meaning)
+                hint = "No"
+            else:
+                print("You Have Already Used The Hint")
         else:
             print("Wrong Word")
             print("  ")
 
-
 #main
-Guessword()
-
-
-
-
-    
+GuessWord()
 
