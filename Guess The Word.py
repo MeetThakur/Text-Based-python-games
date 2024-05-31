@@ -1,4 +1,4 @@
-def guessword():
+def Guessword():
     while True:
         print("Select Difficulty : \n Enter 1 : 3 letters \n Enter 2 : 4 letters \n Enter 3 : 5 lettes \n Enter 4 : 6 letters \n Enter 5 : 7 letters \n Enter 6 : 8 Letters" )
         choice = input(" - ")
@@ -120,7 +120,7 @@ def guessword():
 
 
 #main
-guessword()
+Guessword()
 
 
 
